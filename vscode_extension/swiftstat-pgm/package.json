@@ -1,0 +1,25 @@
+{
+  "name": "swiftstat-pgm",
+  "displayName": "Swiftstat PGM",
+  "description": "Support for Swiftstat PGM Format",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "pgm",
+      "aliases": ["PGM", "pgm"],
+      "extensions": [".pgm",".PGM"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "pgm",
+      "scopeName": "source.pgm",
+      "path": "./syntaxes/pgm.tmLanguage.json"
+    }]
+  }
+}

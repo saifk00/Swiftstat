@@ -1,0 +1,31 @@
+.vscode
+.DS_Store
+venv
+.java-version
+**/.antlr
+
+# SBT
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
+
+# Maybe needed?
+.bsp/
+.metals/
+.bloop/
+
+test_run_dir/
+builds/
+
+# generated output default dir
+swiftstat_generated/
+
+.RData
+.Rhistory
+

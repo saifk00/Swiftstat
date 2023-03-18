@@ -1,0 +1,45 @@
+mypgm BAYESIAN
+
+/*
+* Basic example of a PGM file
+*/
+
+connections:
+Intelligence -> Grade
+Difficulty -> Grade
+Grade -> Letter
+      -> Admitted
+
+
+nodes:
+Intelligence : [0, 1] {
+    0.5, 0.5;
+}
+
+Difficulty : [0, 1] { 0.125, 0.875 }
+
+Grade<Intelligence, Difficulty> : [1, 2, 3] {
+    0.3125, 0.375, 0.3125;
+    0.96875, 0.015625, 0.015625;
+    0.015625, 0.015625, 0.96875;
+    0.3125, 0.375, 0.3125;
+}
+
+Letter<Grade> : [0, 1] {
+    0.96875, 0.03125;
+    0.5, 0.5;
+    0.125, 0.875
+}
+
+Admitted<Grade> : [0, 1] {
+    0.96875, 0.03125;
+    0.8125, 0.1875;
+    0.75, 0.25;
+}
+
+queries:
+// probability that they are admitted and get a letter based on a run-time value of Grade
+P [ Admitted + Letter = 2 | Grade ] #Q0<0.05, 0.95>
+
+// expected grade given a difficult exam and a run-time value of Intelligence
+E [ Grade | Intelligence, Difficulty = 1] #Q1<0.05, 0.95>

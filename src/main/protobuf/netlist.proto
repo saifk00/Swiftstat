@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package org.swiftstat;
+
+import "mdl.proto";
+
+message Connection {
+  enum Type {
+    DIRECTED = 0;
+    UNDIRECTED = 1;
+  }
+
+  Type type = 1;
+  string node_from = 2;
+  string node_to = 3;
+}
+
+message ComputeNodeInfo {
+  enum Type {
+    ADD = 0;
+    SUB = 1;
+    MUL = 2;
+    DIV = 3;
+    POW = 4;
+    IND_LT = 5;
+    IND_GT = 6;
+    IND_LTE = 7;
+    IND_GTE = 8;
+    IND_EQ = 9;
+    IND_AND = 10;
+    IND_OR = 11;
+    CONST = 12;
+  }
+
+  Type type = 1;
+
+  // the value if a constant node
+  double value = 2;
+}
+
+message NodeInfo {
+  // tells us whether the node has a CPD or not (compute has no CPD)
+  // and whether it needs to compute weights (only evidence needs CPD)
+  enum Type {
+    USER = 0;
+    EVIDENCE = 1;
+    COMPUTE = 2;
+  }
+
+  Type type = 1;
+  double error_bound = 2;
+
+  oneof detail {
+    UserNode user_node_info = 4;
+    ComputeNodeInfo compute_node_info = 5;
+  }
+}
+
+message QueryInfo {
+  enum Type {
+    EXPECTATION = 0;
+    MAP = 1;
+  }
+
+  Type type = 1;
+  repeated string evidence_variables = 2;
+  string query_node = 3;
+}
+
+message NetlistProto {
+  repeated string names = 1;
+  repeated Connection connections = 2;
+  repeated QueryInfo queries = 3;
+  map<string, NodeInfo> node_info = 4;
+}

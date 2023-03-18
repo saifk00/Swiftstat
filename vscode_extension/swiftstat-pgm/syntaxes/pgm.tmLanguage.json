@@ -1,0 +1,74 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "PGM",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"name": "entity.name.type.enum",
+			"match": "[a-zA-Z_][a-zA-Z0-9_]*"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+			{
+				"name": "keyword.pgm",
+				"match": "\\b(bayesian|BAYESIAN|markov|MARKOV)\\b"
+			},
+			{
+				"name": "keyword.pgm",
+				"match": "\\b(connections|CONNECTIONS|nodes|NODES|queries|QUERIES)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.pgm",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.pgm",
+					"match": "\\\\."
+				}
+			]
+		},
+		"numbers": {
+			"name": "constant.numeric.pgm",
+			"patterns": [
+				{
+					"name": "constant.numeric.pgm",
+					"match": "\\b(0.\\d+|1.0)\\b"
+				},
+				{
+					"name": "constant.character.escape",
+					"match": "\\b\\d+\\b"
+				}
+			]
+		},
+		"comments": {
+			"name": "comments.pgm",
+			"patterns": [
+				{
+					"name": "comment.line.pgm",
+					"match": "//.*$"
+				},
+				{
+					"name": "comment.block.pgm",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		}
+	},
+	"scopeName": "source.pgm"
+}
