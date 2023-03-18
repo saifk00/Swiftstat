@@ -1,3 +1,7 @@
+# Overview
+
+Swiftstat is a compiler that converts Probabilistic Graphical Models (PGMs) into hardware that can efficiently perform inference on the described model. It was developed from April 2022 and completed in March 2023 by Saif Khattak, Roy Stracovsky, Kourosh Maghsoudlou, and Nicholas Paquin as part of an engineering capstone project at the University of Waterloo.
+
 # Setting up the environment
 Follow [SBT Manual](https://www.scala-sbt.org/1.x/docs/Setup.html) to install SBT, ensuring **JDK 11** is installed. Follow the instructions in **Scala Stuff** to get the hardfloat dependency. Run `source env.sh` and you should be able to compile models using the `swiftstatcc` command.
 
@@ -66,3 +70,14 @@ https://www.chisel-lang.org/diagrammer/
 ```
 
 You can then open `SwiftStatNetwork_hierarchy.dot.svg` in your browser to look at the module!
+
+# Feature Wishlist
+Currently the compiler is good for toy models described in the PGM format. A few things are required if this is to be useful in the real world:
+
+- [ ] Allow (parametrized) continuous distributions in `.pgm` files
+- [ ] Discretize continuous distributions
+- [ ] Fixed-point estimation of non fixed-point distributions
+- [ ] Frontends for existing formats (especially Bayesian Interchange Format and `bnlearn` formats, see https://www.cs.huji.ac.il/w~galel/Repository/#Network%20formats)
+- [ ] Runtimes for data formats (especially image data)
+- [ ] Support for Markov networks
+- [ ] Non likelihood-weighting methods for inference
