@@ -1,0 +1,17 @@
+\section{DDG Trees} \label{sec:ddg-trees}
+
+\subsection{Tree Preliminaries}
+
+\subsection{DDG Tree Introduction}
+
+Discrete distribution generating trees (DDG trees), first introduced in \cite{ALGCPLX:KnuYao76}, are a form of binary tree that permit efficient and exact sampling from discrete probability distributions.
+At a high level, DDG trees consist of two types of nodes: branch nodes (all non-leaf nodes) and terminal nodes (leaf nodes associated with a value). 
+Sampling consists of traversal down the tree, with a random coin flipped at each branch node to determine whether to traverse down the left or right child until a terminal node is hit.
+This terminal node's associated value is the sample.
+If a DDG tree is properly constructed, then the probability of a possible sample output can match that of a desired distribution. 
+The key insight to achieve this is to admit terminal nodes at any level of the tree, and to allow multiple terminal nodes to be associated with the same value.
+A useful concrete example is given in Figure~\ref{fig:todo}.
+
+While DDG-trees may be finite or infinite, only finite trees are in the scope of our work.
+Concretely, this means we only consider DDG trees that represent discrete probability distributions where the probabilities can be described as finite binary strings. 
+We now formally define DDG trees.

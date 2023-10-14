@@ -29,3 +29,10 @@ swiftstat_generated/
 .RData
 .Rhistory
 
+# TeX stuff
+.aux
+.bbl
+.blg
+.log
+.pdf
+.synctex.gz
