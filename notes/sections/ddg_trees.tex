@@ -12,6 +12,16 @@ If a DDG tree is properly constructed, then the probability of a possible sample
 The key insight to achieve this is to admit terminal nodes at any level of the tree, and to allow multiple terminal nodes to be associated with the same value.
 A useful concrete example is given in Figure~\ref{fig:todo}.
 
-While DDG-trees may be finite or infinite, only finite trees are in the scope of our work.
+While DDGtrees may be finite or infinite, only finite trees are in the scope of our work.
 Concretely, this means we only consider DDG trees that represent discrete probability distributions where the probabilities can be described as finite binary strings. 
 We now formally define DDG trees.
+
+\begin{definition}[DDG Tree (adapted from \cite{DevroyeTODO})]
+Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. Then a \emph{DDG tree matching $D$} is a finite binary tree $T$ consisting of the following two types of nodes.
+\begin{itemize}
+	\item Branch nodes, which are unmarked and must have exactly two children, each of which can be a branch node or terminal node, and
+	\item Terminal nodes, which are marked with some value $v \in \mathbb{V}$ and may not have any children.
+\end{itemize}
+$T$ must also satisfy an additional constraint that ensures sampling reflects the distribution $D$. In particular, for all $v \in \mathbb{V}$, let $T_v = \{ x \in \textsc{TerminalNodes}(T) \mid x.\mathsf{value} = v\}$ be the set of terminal nodes in $T$ marked with value $v$. Then
+$$ \sum_{x \in T_v} 2^{-\textsc{Level}(T, x)} = D(v).$$
+\end{definition}
