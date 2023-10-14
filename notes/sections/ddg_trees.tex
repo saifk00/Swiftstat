@@ -16,12 +16,28 @@ While DDGtrees may be finite or infinite, only finite trees are in the scope of 
 Concretely, this means we only consider DDG trees that represent discrete probability distributions where the probabilities can be described as finite binary strings. 
 We now formally define DDG trees.
 
-\begin{definition}[DDG Tree (adapted from \cite{DevroyeTODO})]
+\begin{definition}[DDG Tree (adapted from \cite{Devroye86})]
 Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. Then a \emph{DDG tree matching $D$} is a finite binary tree $T$ consisting of the following two types of nodes.
 \begin{itemize}
 	\item Branch nodes, which are unmarked and must have exactly two children, each of which can be a branch node or terminal node, and
 	\item Terminal nodes, which are marked with some value $v \in \mathbb{V}$ and may not have any children.
 \end{itemize}
-$T$ must also satisfy an additional constraint that ensures sampling reflects the distribution $D$. In particular, for all $v \in \mathbb{V}$, let $T_v = \{ x \in \textsc{TerminalNodes}(T) \mid x.\mathsf{value} = v\}$ be the set of terminal nodes in $T$ marked with value $v$. Then
-$$ \sum_{x \in T_v} 2^{-\textsc{Level}(T, x)} = D(v).$$
+$T$ must also satisfy an additional constraint that ensures sampling reflects the distribution $D$. In particular, for all $v \in \mathbb{V}$, let $T_v = \{ x_v \in \textsc{TerminalNodes}(T) \mid x_v.\mathsf{value} = v\}$ be the set of terminal nodes in $T$ marked with value $v$. Then
+$$ \sum_{x_v \in T_v} 2^{-\textsc{Level}(T, x_v)} = D(v).$$
+\end{definition}
+
+Observe that, for a given discrete probability distribution $D$, there are any number of DDG trees that match $D$.
+Figure~\ref{fig:todo} provides three concrete examples of DDG trees that match the same distribution.
+We now consider two additional definitions that clarify this sundry of trees.
+
+\begin{definition}[Minimal DDG Tree]
+Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. A DDG tree $T$ matching $D$ is \emph{minimal} if there does not exist any DDG tree $T'$ matching $D$ such that $\textsc{Depth}(T') < \textsc{Depth}(T)$.
+\end{definition}
+
+\begin{definition}[Canonical DDG Tree]
+Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. A DDG tree $T$ matching $D$ is \emph{left-sided canonical} if, for all terminal nodes $x \in \textsc{TerminalNodes}(T)$, any one of the following conditions holds.
+\begin{itemize}
+	\item $T$ only contains $x$ (i.e. $x = T.\mathsf{root}$ so $x$ is parentless).
+	\item If $x$ is a left child (i.e. $x = x.\mathsf{parent}.\mathsf{left}$), then TODO FIND BETTER DEFINITION.
+\end{itemize}
 \end{definition}
