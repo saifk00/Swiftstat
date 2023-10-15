@@ -33,14 +33,14 @@ We now consider two additional definitions that clarify this sundry of trees.
 
 \begin{figure}
 	\centering
-	\begin{minipage}{0.8\textwidth}
-		\begin{minipage}{0.26\textwidth}
-			\begin{tikzpicture}[scale=0.7]
+	\begin{minipage}{0.7\textwidth}
+		\begin{minipage}{0.36\textwidth}
+			\begin{tikzpicture}[scale=0.6]
 				\begin{scope}[
 					every node/.style={
 						draw,
 						circle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt
 					}
 				]
@@ -55,9 +55,10 @@ We now consider two additional definitions that clarify this sundry of trees.
 					every node/.style={
 						draw,
 						rectangle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt,
-						fill=black!31
+						fill=black!31,
+						font=\small
 					}
 				]
 					\node (RL) at (0.6, -2.5) {0};
@@ -71,7 +72,7 @@ We now consider two additional definitions that clarify this sundry of trees.
 				\begin{scope}[>={Stealth[black]},
 					every edge/.style={
 						draw=black,
-						line width=1pt,
+						line width=0.8pt,
 						shorten >=1pt,
 						shorten <=1pt,
 						font=\scriptsize
@@ -92,44 +93,45 @@ We now consider two additional definitions that clarify this sundry of trees.
 				\end{scope}
 			\end{tikzpicture}
 		\end{minipage}%
-		\begin{minipage}{0.26\textwidth}
-			\begin{tikzpicture}[scale=0.7]
+		\begin{minipage}{0.3\textwidth}
+			\begin{tikzpicture}[scale=0.6]
 				\begin{scope}[
 					every node/.style={
 						draw,
 						circle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt
 					}
 				]
 					\node (C) at (0,0.25) {};
 					\node (L) at (-1.2,-1) {};
 					\node (R) at (1.2,-1) {};
-					\node (LL) at (-2,-2.5) {};
-					\node (LR) at (-0.4,-2.5) {};
-					\node (LLL) at (-2.4,-4) {};
+					\node (LR) at (-0.6,-2.5) {};
+					\node (RR) at (1.8, -2.5) {};
+					\node (RRL) at (1.1, -4.0) {};
 				\end{scope}
 				\begin{scope}[
 					every node/.style={
 						draw,
 						rectangle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt,
-						fill=black!31
+						fill=black!31,
+						font=\small
 					}
 				]
+					\node (LL) at (-1.8, -2.5) {1};
 					\node (RL) at (0.6, -2.5) {0};
-					\node (RR) at (1.8, -2.5) {1};
-					\node (LLR) at (-1.5, -4) {1};
-					\node (LRL) at (-0.6, -4) {2};
-					\node (LRR) at (0.3, -4) {4};
-					\node (LLLL) at (-2.8, -5.5) {2};
-					\node (LLLR) at (-1.9, -5.5) {3};
+					\node (LRL) at (-1.1, -4.0) {4};
+					\node (LRR) at (-0.1, -4.0) {1};
+					\node (RRR) at (2.3, -4.0) {2};
+					\node (RRLL) at (0.6, -5.5) {3};
+					\node (RRLR) at (1.6, -5.5) {2};
 		        		\end{scope}
 				\begin{scope}[>={Stealth[black]},
 					every edge/.style={
 						draw=black,
-						line width=1pt,
+						line width=0.8pt,
 						shorten >=1pt,
 						shorten <=1pt,
 						font=\scriptsize
@@ -141,22 +143,22 @@ We now consider two additional definitions that clarify this sundry of trees.
 					\path [->] (L) edge node [above right=0.0cm] {1} (LR);
 					\path [->] (R) edge node [above left=0.0cm] {0} (RL);
 					\path [->] (R) edge node [above right=0.0cm] {1} (RR);
-					\path [->] (LL) edge node [left=0.0cm] {0} (LLL);
-					\path [->] (LL) edge node [right=0.0cm] {1} (LLR);
 					\path [->] (LR) edge node [left=0.0cm] {0} (LRL);
 					\path [->] (LR) edge node [right=0.0cm] {1} (LRR);
-					\path [->] (LLL) edge node [left=0.0cm] {0} (LLLL);
-					\path [->] (LLL) edge node [right=0.0cm] {1} (LLLR);
+					\path [->] (RR) edge node [left=0.0cm] {0} (RRL);
+					\path [->] (RR) edge node [right=0.0cm] {1} (RRR);
+					\path [->] (RRL) edge node [left=0.0cm] {0} (RRLL);
+					\path [->] (RRL) edge node [right=0.0cm] {0} (RRLR);
 				\end{scope}
 			\end{tikzpicture}
 		\end{minipage}%
-		\begin{minipage}{0.26\textwidth}
-			\begin{tikzpicture}[scale=0.7]
+		\begin{minipage}{0.33\textwidth}
+			\begin{tikzpicture}[scale=0.6]
 				\begin{scope}[
 					every node/.style={
 						draw,
 						circle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt
 					}
 				]
@@ -166,28 +168,31 @@ We now consider two additional definitions that clarify this sundry of trees.
 					\node (LL) at (-2,-2.5) {};
 					\node (LR) at (-0.4,-2.5) {};
 					\node (LLL) at (-2.4,-4) {};
+					\node (LRR) at (0.3, -4) {};
 				\end{scope}
 				\begin{scope}[
 					every node/.style={
 						draw,
 						rectangle,
-						minimum size=0.5cm,
+						minimum size=0.4cm,
 						line width=1pt,
-						fill=black!31
+						fill=black!31,
+						font=\small
 					}
 				]
 					\node (RL) at (0.6, -2.5) {0};
 					\node (RR) at (1.8, -2.5) {1};
 					\node (LLR) at (-1.5, -4) {1};
 					\node (LRL) at (-0.6, -4) {2};
-					\node (LRR) at (0.3, -4) {4};
 					\node (LLLL) at (-2.8, -5.5) {2};
-					\node (LLLR) at (-1.9, -5.5) {3};
+					\node (LLLR) at (-1.9, -5.5) {4};
+					\node (LRRL) at (-0.2, -5.5) {3};
+					\node (LRRR) at (0.7, -5.5) {4};
 		        		\end{scope}
 				\begin{scope}[>={Stealth[black]},
 					every edge/.style={
 						draw=black,
-						line width=1pt,
+						line width=0.8pt,
 						shorten >=1pt,
 						shorten <=1pt,
 						font=\scriptsize
@@ -205,15 +210,17 @@ We now consider two additional definitions that clarify this sundry of trees.
 					\path [->] (LR) edge node [right=0.0cm] {1} (LRR);
 					\path [->] (LLL) edge node [left=0.0cm] {0} (LLLL);
 					\path [->] (LLL) edge node [right=0.0cm] {1} (LLLR);
+					\path [->] (LRR) edge node [left=0.0cm] {0} (LRRL);
+					\path [->] (LRR) edge node [right=0.0cm] {1} (LRRR);
 				\end{scope}
 			\end{tikzpicture}
 		\end{minipage}%
 	\end{minipage}%
-	\begin{minipage}{0.2\textwidth}
+	\begin{minipage}{0.3\textwidth}
 		\footnotesize
 			\begin{tabular}{c l c c}
 				\toprule
-				\multirow{2}{*}{\begin{tabular}{@{}c@{}} \textbf{value}\end{tabular}}
+				\multirow{2}{*}{\begin{tabular}{@{}c@{}} \textbf{$v$}\end{tabular}}
 					& \multicolumn{2}{c}{\textbf{probability}} \\
 					& \textit{decimal} & \textit{binary} \\
 				\midrule
@@ -234,14 +241,14 @@ We now consider two additional definitions that clarify this sundry of trees.
 
 
 \begin{definition}[Minimal DDG Tree] \label{def:min-ddg-tree}
-Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. A DDG tree $T$ matching $D$ is \emph{minimal} if there does not exist any DDG tree $T'$ matching $D$ such that $\textsc{Depth}(T') < \textsc{Depth}(T)$.
+Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. A DDG tree $T$ matching $D$ is \emph{minimal} if there does not exist any DDG tree $T'$ matching $D$ such that $\left| \textsc{TerminalNodes}(T') \right| < \left| \textsc{TerminalNodes}(T) \right|$.
 \end{definition}
 
 \begin{definition}[Canonical DDG Tree] \label{def:canon-ddg-tree}
 Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities and $\mathbb{V}$ have a total ordering. 
-A DDG tree $T$ matching $D$ is \emph{left-sided canonical} if $T$ is minimal and the following holds. 
-For all $x \in \textsc{BranchNodes}(T)$ we let $T_\ell = \textsc{SubTree}(T, x.\mathsf{left})$ and $T_r = \textsc{SubTree}(T, x.\mathsf{right})$. 
-Then for all $x_\ell \in \textsc{TerminalNodes}(T_\ell)$ and $x_r \in \textsc{TerminalNodes}(T_r)$ either.
+A DDG tree $T$ matching $D$ is \emph{left-sided canonical} if it is minimal and the following holds. 
+For all $x \in \textsc{BranchNodes}(T)$ we let $T_\ell = \textsc{SubTree}(T, x.\mathsf{left})$, $T_r = \textsc{SubTree}(T, x.\mathsf{right})$. 
+Then for $x_\ell \in \textsc{TerminalNodes}(T_\ell)$ and $x_r \in \textsc{TerminalNodes}(T_r)$ either.
 \begin{itemize}
 	\item $\textsc{Depth}(x_\ell) > \textsc{Depth}(x_r)$; or
 	\item $\textsc{Depth}(x_\ell) = \textsc{Depth}(x_r)$ and $x_\ell.\mathsf{value} \le x_r.\mathsf{value}$.
