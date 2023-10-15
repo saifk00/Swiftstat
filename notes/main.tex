@@ -7,15 +7,20 @@
 								% TeX will automatically convert eps --> pdf in pdflatex		
 \usepackage{amsmath, amsfonts, amssymb, amsthm}
 
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{corollary}
+\newtheorem{corollary}{Corollary}[theorem]
+
+\theoremstyle{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
 
 %SetFonts
 
