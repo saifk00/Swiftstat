@@ -27,8 +27,211 @@ $$ \sum_{x_v \in T_v} 2^{-\textsc{Depth}(T, x_v)} = D(v).$$
 \end{definition}
 
 Observe that, for a given discrete probability distribution $D$, there are any number of DDG trees that match $D$.
-Figure~\ref{fig:todo} provides three concrete examples of DDG trees that match the same distribution.
+Figure~\ref{fig:ddg-tree-examples} provides three concrete examples of DDG trees that match the same distribution.
 We now consider two additional definitions that clarify this sundry of trees.
+
+
+\begin{figure}
+	\centering
+	\begin{minipage}{0.8\textwidth}
+		\begin{minipage}{0.26\textwidth}
+			\begin{tikzpicture}[scale=0.7]
+				\begin{scope}[
+					every node/.style={
+						draw,
+						circle,
+						minimum size=0.5cm,
+						line width=1pt
+					}
+				]
+					\node (C) at (0,0.25) {};
+					\node (L) at (-1.2,-1) {};
+					\node (R) at (1.2,-1) {};
+					\node (LL) at (-2,-2.5) {};
+					\node (LR) at (-0.4,-2.5) {};
+					\node (LLL) at (-2.4,-4) {};
+				\end{scope}
+				\begin{scope}[
+					every node/.style={
+						draw,
+						rectangle,
+						minimum size=0.5cm,
+						line width=1pt,
+						fill=black!31
+					}
+				]
+					\node (RL) at (0.6, -2.5) {0};
+					\node (RR) at (1.8, -2.5) {1};
+					\node (LLR) at (-1.5, -4) {1};
+					\node (LRL) at (-0.6, -4) {2};
+					\node (LRR) at (0.3, -4) {4};
+					\node (LLLL) at (-2.8, -5.5) {2};
+					\node (LLLR) at (-1.9, -5.5) {3};
+		        		\end{scope}
+				\begin{scope}[>={Stealth[black]},
+					every edge/.style={
+						draw=black,
+						line width=1pt,
+						shorten >=1pt,
+						shorten <=1pt,
+						font=\scriptsize
+					}
+				]
+					\path [->] (C) edge node [above left=0.0cm] {0} (L);
+					\path [->] (C) edge node [above right=0.0cm] {1} (R);
+					\path [->] (L) edge node [above left=0.0cm] {0} (LL);
+					\path [->] (L) edge node [above right=0.0cm] {1} (LR);
+					\path [->] (R) edge node [above left=0.0cm] {0} (RL);
+					\path [->] (R) edge node [above right=0.0cm] {1} (RR);
+					\path [->] (LL) edge node [left=0.0cm] {0} (LLL);
+					\path [->] (LL) edge node [right=0.0cm] {1} (LLR);
+					\path [->] (LR) edge node [left=0.0cm] {0} (LRL);
+					\path [->] (LR) edge node [right=0.0cm] {1} (LRR);
+					\path [->] (LLL) edge node [left=0.0cm] {0} (LLLL);
+					\path [->] (LLL) edge node [right=0.0cm] {1} (LLLR);
+				\end{scope}
+			\end{tikzpicture}
+		\end{minipage}%
+		\begin{minipage}{0.26\textwidth}
+			\begin{tikzpicture}[scale=0.7]
+				\begin{scope}[
+					every node/.style={
+						draw,
+						circle,
+						minimum size=0.5cm,
+						line width=1pt
+					}
+				]
+					\node (C) at (0,0.25) {};
+					\node (L) at (-1.2,-1) {};
+					\node (R) at (1.2,-1) {};
+					\node (LL) at (-2,-2.5) {};
+					\node (LR) at (-0.4,-2.5) {};
+					\node (LLL) at (-2.4,-4) {};
+				\end{scope}
+				\begin{scope}[
+					every node/.style={
+						draw,
+						rectangle,
+						minimum size=0.5cm,
+						line width=1pt,
+						fill=black!31
+					}
+				]
+					\node (RL) at (0.6, -2.5) {0};
+					\node (RR) at (1.8, -2.5) {1};
+					\node (LLR) at (-1.5, -4) {1};
+					\node (LRL) at (-0.6, -4) {2};
+					\node (LRR) at (0.3, -4) {4};
+					\node (LLLL) at (-2.8, -5.5) {2};
+					\node (LLLR) at (-1.9, -5.5) {3};
+		        		\end{scope}
+				\begin{scope}[>={Stealth[black]},
+					every edge/.style={
+						draw=black,
+						line width=1pt,
+						shorten >=1pt,
+						shorten <=1pt,
+						font=\scriptsize
+					}
+				]
+					\path [->] (C) edge node [above left=0.0cm] {0} (L);
+					\path [->] (C) edge node [above right=0.0cm] {1} (R);
+					\path [->] (L) edge node [above left=0.0cm] {0} (LL);
+					\path [->] (L) edge node [above right=0.0cm] {1} (LR);
+					\path [->] (R) edge node [above left=0.0cm] {0} (RL);
+					\path [->] (R) edge node [above right=0.0cm] {1} (RR);
+					\path [->] (LL) edge node [left=0.0cm] {0} (LLL);
+					\path [->] (LL) edge node [right=0.0cm] {1} (LLR);
+					\path [->] (LR) edge node [left=0.0cm] {0} (LRL);
+					\path [->] (LR) edge node [right=0.0cm] {1} (LRR);
+					\path [->] (LLL) edge node [left=0.0cm] {0} (LLLL);
+					\path [->] (LLL) edge node [right=0.0cm] {1} (LLLR);
+				\end{scope}
+			\end{tikzpicture}
+		\end{minipage}%
+		\begin{minipage}{0.26\textwidth}
+			\begin{tikzpicture}[scale=0.7]
+				\begin{scope}[
+					every node/.style={
+						draw,
+						circle,
+						minimum size=0.5cm,
+						line width=1pt
+					}
+				]
+					\node (C) at (0,0.25) {};
+					\node (L) at (-1.2,-1) {};
+					\node (R) at (1.2,-1) {};
+					\node (LL) at (-2,-2.5) {};
+					\node (LR) at (-0.4,-2.5) {};
+					\node (LLL) at (-2.4,-4) {};
+				\end{scope}
+				\begin{scope}[
+					every node/.style={
+						draw,
+						rectangle,
+						minimum size=0.5cm,
+						line width=1pt,
+						fill=black!31
+					}
+				]
+					\node (RL) at (0.6, -2.5) {0};
+					\node (RR) at (1.8, -2.5) {1};
+					\node (LLR) at (-1.5, -4) {1};
+					\node (LRL) at (-0.6, -4) {2};
+					\node (LRR) at (0.3, -4) {4};
+					\node (LLLL) at (-2.8, -5.5) {2};
+					\node (LLLR) at (-1.9, -5.5) {3};
+		        		\end{scope}
+				\begin{scope}[>={Stealth[black]},
+					every edge/.style={
+						draw=black,
+						line width=1pt,
+						shorten >=1pt,
+						shorten <=1pt,
+						font=\scriptsize
+					}
+				]
+					\path [->] (C) edge node [above left=0.0cm] {0} (L);
+					\path [->] (C) edge node [above right=0.0cm] {1} (R);
+					\path [->] (L) edge node [above left=0.0cm] {0} (LL);
+					\path [->] (L) edge node [above right=0.0cm] {1} (LR);
+					\path [->] (R) edge node [above left=0.0cm] {0} (RL);
+					\path [->] (R) edge node [above right=0.0cm] {1} (RR);
+					\path [->] (LL) edge node [left=0.0cm] {0} (LLL);
+					\path [->] (LL) edge node [right=0.0cm] {1} (LLR);
+					\path [->] (LR) edge node [left=0.0cm] {0} (LRL);
+					\path [->] (LR) edge node [right=0.0cm] {1} (LRR);
+					\path [->] (LLL) edge node [left=0.0cm] {0} (LLLL);
+					\path [->] (LLL) edge node [right=0.0cm] {1} (LLLR);
+				\end{scope}
+			\end{tikzpicture}
+		\end{minipage}%
+	\end{minipage}%
+	\begin{minipage}{0.2\textwidth}
+		\footnotesize
+			\begin{tabular}{c l c c}
+				\toprule
+				\multirow{2}{*}{\begin{tabular}{@{}c@{}} \textbf{value}\end{tabular}}
+					& \multicolumn{2}{c}{\textbf{probability}} \\
+					& \textit{decimal} & \textit{binary} \\
+				\midrule
+				0 & 0.2500 & 0.0100 \\
+				1 & 0.3750 & 0.0110 \\
+				2 & 0.1875 & 0.0011 \\
+				3 & 0.0625 & 0.0001 \\
+				4 & 0.1250 & 0.0010 \\
+				\midrule
+				\textbf{sum} & 1.0000 & 1.0000 \\
+				\bottomrule
+			\end{tabular}
+	\end{minipage}
+	\caption{Example DDG trees matching a given distribution.}
+	\hrulefill
+	\label{fig:ddg-tree-examples}
+\end{figure}
+
 
 \begin{definition}[Minimal DDG Tree] \label{def:min-ddg-tree}
 Let $D:\mathbb{V} \to \{0, 1\}^n$ be a discrete distribution with binary probabilities. A DDG tree $T$ matching $D$ is \emph{minimal} if there does not exist any DDG tree $T'$ matching $D$ such that $\textsc{Depth}(T') < \textsc{Depth}(T)$.
