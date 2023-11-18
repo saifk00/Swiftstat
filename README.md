@@ -3,7 +3,7 @@
 Swiftstat is a compiler that converts Probabilistic Graphical Models (PGMs) into hardware that can efficiently perform inference on the described model. It was developed from April 2022 and completed in March 2023 by Saif Khattak, Roy Stracovsky, Kourosh Maghsoudlou, and Nicholas Paquin as part of an engineering capstone project at the University of Waterloo.
 
 # Setting up the environment
-Follow [SBT Manual](https://www.scala-sbt.org/1.x/docs/Setup.html) to install SBT, ensuring **JDK 11** is installed. Follow the instructions in **Scala Stuff** to get the hardfloat dependency. Run `source env.sh` and you should be able to compile models using the `swiftstatcc` command.
+Follow [SBT Manual](https://www.scala-sbt.org/1.x/docs/Setup.html) to install SBT, ensuring **JDK 11** is installed. Follow the instructions in **Scala Stuff** to get the hardfloat dependency. Build the fat jar with `sbt assembly` and run `source env.sh` and you should be able to compile models using the `swiftstatcc` command.
 
 # Running a Basic Compile
 Use the demo models in the `models` directory. For example, to compile the `student2` network:
