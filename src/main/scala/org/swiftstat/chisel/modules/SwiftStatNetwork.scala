@@ -70,9 +70,9 @@ class SwiftStatNetwork(mdl: MDLEntity, hardwareWeightedAverage: Boolean) extends
     val evidenceInternal = Wire(SampleSet(nodes))
     nodes.zipWithIndex.foreach{ case(node, index) => {
         if (mdl.runTimeEvidenceNodes.contains(node)) {
-            evidenceInternal.rawValues(index).sample := io.elements(node.name)
+            evidenceInternal(node).sample := io.elements(node.name)
         } else {
-            evidenceInternal.rawValues(index).sample := 0.U
+            evidenceInternal(node).sample := 0.U
         }
     }}
 
