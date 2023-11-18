@@ -5,14 +5,19 @@ import org.swiftstat.pgm.compiler.PGMCompilerContext
 import scopt.OParser
 import java.io.File
 import com.typesafe.scalalogging.Logger
+import java.nio.file.Files
+import java.nio.file.Paths
 
 case class SwiftstatConfig(
     pgmFileIn: File,
-    mdlFileProtoOut: File = new File("out.mdl"),
-    mdlFileJsonOut: File = new File("mdl.json"),
-    hardwareOut: String = "swiftstat_generated",
-    debug: Boolean = false,
-)
+    mdlProtoName: String = "out.mdl",
+    mdlJsonName: String = "out.json",
+    hardwareOut: String = "out.swiftstat",
+    debug: Boolean = false) {
+
+        def mdlProtoFile: File = new File(s"${hardwareOut}/${mdlProtoName}")
+        def mdlJsonFile: File = new File(s"${hardwareOut}/${mdlJsonName}")
+}
 
 class CompilerTimer {
     private var t0 = 0L
@@ -32,20 +37,26 @@ class CompilerTimer {
 object Swiftstat extends App {
     val logger = Logger(getClass.getName.stripSuffix("$"))
     val builder = OParser.builder[SwiftstatConfig]
+    // TODO: grab the name from the execution environment somehow.
+    //       cant use args(0) since args is technically argv[1:]
+    val progName = "scc"
     val argParser = {
         import builder._
         OParser.sequence(
-            programName("swiftstat"),
-            head("swiftstat", "0.1"),
+            programName(progName),
+            head(s"${progName}: The Swiftstat PGM Compiler"),
             opt[File]('i', "pgm")
                 .required()
-                .action((x, c) => c.copy(pgmFileIn = x))
+                .action((x, c) => {
+                    c.copy(pgmFileIn = x)
+                     .copy(hardwareOut = s"${x.getName().stripSuffix(".pgm")}.swiftstat")
+                })
                 .text("PGM file to compile"),
-            opt[File]('o', "mdl")
-                .action((x, c) => c.copy(mdlFileProtoOut = x))
+            opt[String]('o', "mdl")
+                .action((x, c) => c.copy(mdlProtoName = x))
                 .text("MDL file to write"),
-            opt[File]('j', "json")
-                .action((x, c) => c.copy(mdlFileJsonOut = x))
+            opt[String]('j', "json")
+                .action((x, c) => c.copy(mdlJsonName = x))
                 .text("JSON file to write"),
             opt[Unit]('d', "debug")
                 .action((_, c) => c.copy(debug = true))
@@ -66,12 +77,21 @@ object Swiftstat extends App {
                 val mdl = ctx.compile(pgmFile)
             val mdlTime = timer.stop()
 
-            mdl.writeProtoToFile(config.mdlFileProtoOut)
-            logger.debug(s"Wrote protobuf to ${config.mdlFileProtoOut}")
+            // set up the directory for compile output
+            val compileDir = Paths.get(config.hardwareOut)
+            if (!Files.exists(compileDir)) {
+                Files.createDirectory(compileDir)
+            } else {
+                logger.warn(s"Compile directory ${compileDir} already exists, overwriting some files")
+            }
 
-            mdl.writeJsonToFile(config.mdlFileJsonOut)
-            logger.debug(s"Wrote json to ${config.mdlFileJsonOut}")
-            println(s"\tjson available at ${config.mdlFileJsonOut}\n\tproto available at ${config.mdlFileProtoOut}")
+
+            mdl.writeProtoToFile(config.mdlProtoFile)
+            logger.debug(s"Wrote protobuf to ${config.mdlProtoName}")
+
+            mdl.writeJsonToFile(config.mdlJsonFile)
+            logger.debug(s"Wrote json to ${config.mdlJsonName}")
+            println(s"\tjson available at ${config.mdlJsonName}\n\tproto available at ${config.mdlProtoName}")
 
             // mdl -> mdlEntity
             timer.start("Constructing MDLEntity")

@@ -3,14 +3,14 @@
 Swiftstat is a compiler that converts Probabilistic Graphical Models (PGMs) into hardware that can efficiently perform inference on the described model. It was developed from April 2022 and completed in March 2023 by Saif Khattak, Roy Stracovsky, Kourosh Maghsoudlou, and Nicholas Paquin as part of an engineering capstone project at the University of Waterloo.
 
 # Setting up the environment
-Follow [SBT Manual](https://www.scala-sbt.org/1.x/docs/Setup.html) to install SBT, ensuring **JDK 11** is installed. Follow the instructions in **Scala Stuff** to get the hardfloat dependency. Build the fat jar with `sbt assembly` and run `source env.sh` and you should be able to compile models using the `swiftstatcc` command.
+Follow [SBT Manual](https://www.scala-sbt.org/1.x/docs/Setup.html) to install SBT, ensuring **JDK 11** is installed. Follow the instructions in **Scala Stuff** to get the hardfloat dependency. Build the fat jar with `sbt assembly` and run `source env.sh` and you should be able to compile models using the `scc` command.
 
 # Running a Basic Compile
 Use the demo models in the `models` directory. For example, to compile the `student2` network:
 ```
-    swiftstatcc --pgm models/student2.pgm
+    scc --pgm models/student2.pgm
 ```
-The MDL will be output in protobuf/JSON format and the generated hardware (FIRRTL/Verilog) will be placed in the `swiftstat_generated/` folder.
+The MDL will be output in protobuf/JSON format and the generated hardware (FIRRTL/Verilog) will be placed in the `student2.swiftstat` folder.
 
 # Testing
 `sbt test` will run everything. `sbt "testOnly *<Class>"` will let you run a specific test class.
@@ -81,3 +81,6 @@ Currently the compiler is good for toy models described in the PGM format. A few
 - [ ] Runtimes for data formats (especially image data)
 - [ ] Support for Markov networks
 - [ ] Non likelihood-weighting methods for inference
+
+# Topics to Investigate
+- [ ] Dynamic scheduling (ready/valid interfaces)

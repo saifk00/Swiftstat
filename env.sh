@@ -1,1 +1,1 @@
-alias swiftstatcc="java -Dlogback.configurationFile=src/main/resources/swiftstat_logback.xml -Xmx4G -jar target/scala-2.13/swiftstat-assembly-0.1.0.jar"
+alias scc="java -Dlogback.configurationFile=src/main/resources/swiftstat_logback.xml -Xmx4G -jar target/scala-2.13/swiftstat-assembly-0.1.0.jar"

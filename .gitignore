@@ -25,6 +25,7 @@ builds/
 
 # generated output default dir
 swiftstat_generated/
+*.swiftstat/
 
 .RData
 .Rhistory
