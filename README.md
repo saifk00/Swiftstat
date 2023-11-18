@@ -81,6 +81,7 @@ Currently the compiler is good for toy models described in the PGM format. A few
 - [ ] Runtimes for data formats (especially image data)
 - [ ] Support for Markov networks
 - [ ] Non likelihood-weighting methods for inference
+- [ ] Fast testing (bypass long tests)
 
 # Topics to Investigate
 - [ ] Dynamic scheduling (ready/valid interfaces)

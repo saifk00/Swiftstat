@@ -48,6 +48,15 @@ class SwiftStatNetworkBundle(mdl: MDLEntity) extends Record {
     override def cloneType: this.type = (new SwiftStatNetworkBundle(mdl)).asInstanceOf[this.type]
 }
 
+/**
+  * Entry point for compiling an MDL to a SwiftStatNetwork (the hardware that answers queries)
+  *
+  * @param mdl the MDLEntity to synthesize
+  * @param hardwareWeightedAverage whether to perform the weighted average in hardware
+  *                                if set to `true`, the io.queryResult port will contain the computed average
+  *                                otherwise a separate module will be required to compute
+  *                                queries from the io.queryValue map
+  */
 class SwiftStatNetwork(mdl: MDLEntity, hardwareWeightedAverage: Boolean) extends Module {
     val logger = Logger[SwiftStatNetwork]
 
@@ -56,9 +65,6 @@ class SwiftStatNetwork(mdl: MDLEntity, hardwareWeightedAverage: Boolean) extends
     val nodes = mdl.userNodes.toSeq
     val queries = mdl.queries.toSeq
     val io = IO(new SwiftStatNetworkBundle(mdl))
-
-    val currentQueryID = io.currentQueryID
-    val queryResult = io.queryResult
 
     // we remap the user-facing mixedvec to an internal sampleset to allow nicer naming for the user
     val evidenceInternal = Wire(SampleSet(nodes))
@@ -70,7 +76,7 @@ class SwiftStatNetwork(mdl: MDLEntity, hardwareWeightedAverage: Boolean) extends
         }
     }}
 
-    val samplerNetwork = SamplerNetwork(mdl, evidenceInternal, currentQueryID)
+    val samplerNetwork = SamplerNetwork(mdl, evidenceInternal, io.currentQueryID)
     val samples = samplerNetwork.io.samples
     val values = ValueMapper(nodes, samples)
 
@@ -86,13 +92,13 @@ class SwiftStatNetwork(mdl: MDLEntity, hardwareWeightedAverage: Boolean) extends
     }}
 
     if (hardwareWeightedAverage) {
-        queryResult := MuxCase(0.RecFN.FN,
+        io.queryResult := MuxCase(0.RecFN.FN,
             mdl.queries.map(q => {
-                val queryMatched = currentQueryID === queries.indexOf(q).U
+                val queryMatched = io.currentQueryID === queries.indexOf(q).U
                 queryMatched -> queryEvaluators(q).io.currentWeightedAverage.FN
             }).toSeq)
     } else {
-        queryResult := 0.RecFN.FN
+        io.queryResult := 0.RecFN.FN
     }
 
     logger.debug(s"Constructed SwiftStatNetwork for network ${mdl.name}")
