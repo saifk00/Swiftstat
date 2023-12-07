@@ -25,8 +25,8 @@ class StaticSampleSet(nodes: Seq[UserNodeEntity], values: Map[String, Int]) exte
 
     io.samples.samplesByName.foreach {
         case (name, sample) =>
-            val sampleValue = WireInit(values(name).U(sample.sample.getWidth.W))
-            sample.sample := sampleValue
+            val sampleValue = WireInit(values(name).U(sample.getWidth.W))
+            sample := sampleValue
     }
 }
 
@@ -78,23 +78,23 @@ class ValueMapperTest extends AnyFlatSpec with ChiselScalatestTester {
         new SampleAndMapDynamic(Seq(nA, nB, nC))
     }) {
         c =>
-        c.io.samples.samplesByName("A").sample.poke(0.U)
+        c.io.samples.samplesByName("A").poke(0.U)
         assert(c.io.mapped(0).peek().toDouble == 1.0)
-        c.io.samples.samplesByName("A").sample.poke(1.U)
+        c.io.samples.samplesByName("A").poke(1.U)
         assert(c.io.mapped(0).peek().toDouble == 2.0)
 
-        c.io.samples.samplesByName("B").sample.poke(0.U)
+        c.io.samples.samplesByName("B").poke(0.U)
         assert(c.io.mapped(1).peek().toDouble == 1.0)
-        c.io.samples.samplesByName("B").sample.poke(1.U)
+        c.io.samples.samplesByName("B").poke(1.U)
         assert(c.io.mapped(1).peek().toDouble == 2.0)
 
-        c.io.samples.samplesByName("C").sample.poke(0.U)
+        c.io.samples.samplesByName("C").poke(0.U)
         assert(c.io.mapped(2).peek().toDouble == 1.0)
-        c.io.samples.samplesByName("C").sample.poke(1.U)
+        c.io.samples.samplesByName("C").poke(1.U)
         assert(c.io.mapped(2).peek().toDouble == 2.0)
-        c.io.samples.samplesByName("C").sample.poke(2.U)
+        c.io.samples.samplesByName("C").poke(2.U)
         assert(c.io.mapped(2).peek().toDouble == 50.0)
-        c.io.samples.samplesByName("C").sample.poke(3.U)
+        c.io.samples.samplesByName("C").poke(3.U)
         assert(c.io.mapped(2).peek().toDouble == 23.0)
     }
 

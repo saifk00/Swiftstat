@@ -41,7 +41,7 @@ class RowSampler(bitPrefixes: Map[Int, Set[Prefix]]) extends Module {
 
     val io = IO(Sample.fromNumBits(numBits))
 
-    io.sample := sample.asUInt
+    io := sample.asUInt
 }
 
 object RowSampler {

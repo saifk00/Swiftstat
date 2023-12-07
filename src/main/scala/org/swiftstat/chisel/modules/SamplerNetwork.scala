@@ -10,7 +10,7 @@ import scala.annotation.tailrec
 import chisel3.util.ShiftRegister
 import chisel3.util._
 
-case class ParentCPDSampler(sample: Sample, depth: Int)
+case class ParentCPDSampler(sample: UInt, depth: Int)
 
 /**
   * Constructs a network of CPDSamplers. Provides a single output port containing

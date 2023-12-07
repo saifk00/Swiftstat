@@ -15,5 +15,5 @@ class BinaryOrphanCPDSampler extends Module {
 
     private val row = node.getRows().head._2
     private val rowSampler = Module(RowSampler.fromCPDRow(row))
-    io.sample := rowSampler.io.sample
+    io := rowSampler.io
 }

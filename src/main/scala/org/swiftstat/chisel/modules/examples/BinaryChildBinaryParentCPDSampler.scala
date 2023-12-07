@@ -46,8 +46,8 @@ class BinaryChildBinaryParentCPDSampler extends Module {
             // this conditional will have to be changed for multiple parents. That is, the condition is actually
             // for all samples S_i in io.parentSamples, S_i is equal to P_i - the ordinal value (i.e. index)
             // of the value in parentAssignment corresponding to the parent.
-            (io.parentSample.samples(0).sample === parentOrdinals(parentAssignment.head).U) -> rowSampler.io.sample }
+            (io.parentSample.samples(0) === parentOrdinals(parentAssignment.head).U) -> rowSampler.io }
         .toSeq)
 
-    io.output.sample := sample
+    io.output := sample
 }

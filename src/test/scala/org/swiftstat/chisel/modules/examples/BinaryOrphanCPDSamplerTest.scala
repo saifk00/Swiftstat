@@ -13,7 +13,7 @@ class BinaryOrphanCPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester 
                 1 -> 0)
 
             for (i <- 1 to 10_000) {
-                val sample = c.io.sample.peekInt()
+                val sample = c.io.peekInt()
                 distribution(sample.toInt) += 1
 
                 c.clock.step()

@@ -15,7 +15,7 @@ class SampleSetTest extends AnyFlatSpec with ChiselScalatestTester {
         val sampleSet = SampleSet(Seq(node))
 
         assert(sampleSet.samples.size == 1)
-        assert(sampleSet.samples(0).sample.getWidth == 2)
+        assert(sampleSet.samples(0).getWidth == 2)
     }
 
     it should "construct a bundle of 3 nodes" in
@@ -27,9 +27,9 @@ class SampleSetTest extends AnyFlatSpec with ChiselScalatestTester {
         val sampleSet = SampleSet(Seq(a, b, c))
 
         assert(sampleSet.samples.size == 3)
-        assert(sampleSet.samples(0).sample.getWidth == 2)
-        assert(sampleSet.samples(1).sample.getWidth == 3)
-        assert(sampleSet.samples(2).sample.getWidth == 4)
+        assert(sampleSet.samples(0).getWidth == 2)
+        assert(sampleSet.samples(1).getWidth == 3)
+        assert(sampleSet.samples(2).getWidth == 4)
     }
 
     it should "map by name correctly" in
@@ -41,9 +41,9 @@ class SampleSetTest extends AnyFlatSpec with ChiselScalatestTester {
         val sampleSet = SampleSet(Seq(a, b, c))
 
         assert(sampleSet.samples.size == 3)
-        assert(sampleSet.samplesByName("A").sample.getWidth == 2)
-        assert(sampleSet.samplesByName("B").sample.getWidth == 3)
-        assert(sampleSet.samplesByName("C").sample.getWidth == 4)
+        assert(sampleSet.samplesByName("A").getWidth == 2)
+        assert(sampleSet.samplesByName("B").getWidth == 3)
+        assert(sampleSet.samplesByName("C").getWidth == 4)
     }
 
 }

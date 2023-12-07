@@ -47,7 +47,6 @@ class SamplerNetworkTest extends AnyFlatSpec with ChiselScalatestTester {
                     case (name, count) =>
                         val sample = c.io.samples
                             .samplesByName(name)
-                            .sample
                             .peekInt()
                             .toInt
                         name -> count.updated(sample, count(sample) + 1)
@@ -125,7 +124,7 @@ class SamplerNetworkTest extends AnyFlatSpec with ChiselScalatestTester {
             // should fix the C sample to 1
             for (i <- 0 until 100) {
                 c.clock.step()
-                val sample = c.io.samples.samplesByName("C").sample.peekInt().toInt
+                val sample = c.io.samples.samplesByName("C").peekInt().toInt
                 assert(sample == 1)
             }
         }
@@ -155,14 +154,14 @@ class SamplerNetworkTest extends AnyFlatSpec with ChiselScalatestTester {
 
         // should fix the C sample to 1
         c.clock.step()
-        c.io.evidence.samplesByName("C").sample.poke(1.U)
-        var sample = c.io.samples.samplesByName("C").sample.peekInt().toInt
+        c.io.evidence.samplesByName("C").poke(1.U)
+        var sample = c.io.samples.samplesByName("C").peekInt().toInt
         assert(sample == 1)
 
         // should fix the C sample to 0
         c.clock.step()
-        c.io.evidence.samplesByName("C").sample.poke(0.U)
-        sample = c.io.samples.samplesByName("C").sample.peekInt().toInt
+        c.io.evidence.samplesByName("C").poke(0.U)
+        sample = c.io.samples.samplesByName("C").peekInt().toInt
         assert(sample == 0)
     }
 }

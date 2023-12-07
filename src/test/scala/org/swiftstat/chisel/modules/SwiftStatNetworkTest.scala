@@ -61,7 +61,7 @@ class SwiftStatNetworkTest extends AnyFlatSpec with ChiselScalatestTester {
         }).withAnnotations(Seq(VerilatorBackendAnnotation))
         {
             c =>
-            // c.io.evidence.samplesByName.foreach{case (name, sample) => sample.sample.poke(0.U)}
+            // c.io.evidence.samplesByName.foreach{case (name, sample) => sample.poke(0.U)}
             c.clock.setTimeout(0)
             var lastValue = 0.0
             val softwareAverage = new SoftwareRunningWeightedAverage()

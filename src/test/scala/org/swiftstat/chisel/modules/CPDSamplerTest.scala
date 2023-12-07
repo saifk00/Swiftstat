@@ -16,7 +16,7 @@ class CPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester {
 
     def getDist(parentAssignment: Map[String, Int])(implicit c: CPDSampler): Map[Int, Double] = {
         for ((parent, value) <- parentAssignment) {
-            c.io.parents.samplesByName(parent).sample.poke(value.U)
+            c.io.parents.samplesByName(parent).poke(value.U)
         }
 
         val distribution = scala.collection.mutable.Map[Int, Int](
@@ -25,7 +25,7 @@ class CPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester {
         c.clock.setTimeout(0)
 
         for (i <- 1 to 5000) {
-            val sampleValue = c.io.sample.sample.peekInt()
+            val sampleValue = c.io.sample.peekInt()
             distribution(sampleValue.toInt) += 1
 
             c.clock.step()
@@ -101,8 +101,8 @@ class CPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester {
             c =>
 
             assert(c.io.parents.samples.size == 1)
-            assert(c.io.parents.samples(0).sample.getWidth == 1)
-            assert(c.io.sample.sample.getWidth == 2)
+            assert(c.io.parents.samples(0).getWidth == 1)
+            assert(c.io.sample.getWidth == 2)
         }
 
     it should "construct a proper IO bundle for an orphan" in
@@ -113,7 +113,7 @@ class CPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester {
             c =>
 
             assert(c.io.parents.samples.size == 0)
-            assert(c.io.sample.sample.getWidth == 1)
+            assert(c.io.sample.getWidth == 1)
         }
 
     it should "construct a proper IO bundle for a 3-parent node" in
@@ -136,9 +136,9 @@ class CPDSamplerTest extends AnyFlatSpec with ChiselScalatestTester {
             c =>
 
             assert(c.io.parents.samples.size == 3)
-            assert(c.io.parents.samples(0).sample.getWidth == 1)
-            assert(c.io.parents.samples(1).sample.getWidth == 1)
-            assert(c.io.parents.samples(2).sample.getWidth == 1)
-            assert(c.io.sample.sample.getWidth == 1)
+            assert(c.io.parents.samples(0).getWidth == 1)
+            assert(c.io.parents.samples(1).getWidth == 1)
+            assert(c.io.parents.samples(2).getWidth == 1)
+            assert(c.io.sample.getWidth == 1)
         }
 }

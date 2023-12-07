@@ -15,10 +15,10 @@ class BinaryChildBinaryParentCPDSamplerTest extends AnyFlatSpec with ChiselScala
             var parentSample = 0;
             for (i <- 1 to 10_000) {
                 // simulate a 50-50 parent sampler
-                c.io.parentSample.samples(0).sample.poke(parentSample.U)
+                c.io.parentSample.samples(0).poke(parentSample.U)
                 parentSample = 1 - parentSample
 
-                val sample = c.io.output.sample.peekInt()
+                val sample = c.io.output.peekInt()
                 distribution(sample.toInt) += 1
 
                 c.clock.step()

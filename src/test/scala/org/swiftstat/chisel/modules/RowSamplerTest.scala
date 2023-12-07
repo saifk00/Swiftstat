@@ -25,7 +25,7 @@ object TestUtil {
 
         sampler.clock.setTimeout(0)
         for (i <- 1 to 10_000) {
-            val sample = sampler.io.sample.peekInt()
+            val sample = sampler.io.peekInt()
             distribution(sample.toInt) += 1
 
             sampler.clock.step()

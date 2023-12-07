@@ -18,7 +18,7 @@ class CPDSampler(node: UserNodeEntity) extends Module {
     val sample = Output(Sample(node))
   })
 
-  io.sample.sample := 0.U
+  io.sample := 0.U
 
   // for each row, we create the row sampler and keep the association with the parent assignment
   // 'assignment' meaning the value of the parent node for that row
@@ -46,23 +46,23 @@ class CPDSampler(node: UserNodeEntity) extends Module {
           // this rowSampler
           val parentAssignmentsMatched = parentAssignments
             .map(parentAssignment => {
-              val measuredSample = io.parents.samplesByName(parentAssignment.name).sample
+              val measuredSample = io.parents.samplesByName(parentAssignment.name)
               val valueForThisRow = parentOrdinals(parentAssignment).U
 
               measuredSample === valueForThisRow
             })
             .reduceLeft(_ & _)
 
-            parentAssignmentsMatched -> rowSampler.io.sample
+            parentAssignmentsMatched -> rowSampler.io
       }
     .toSeq)
   } else {
     require(rowSamplers.size == 1, "orphan had multiple row samplers")
 
-    rowSamplers.head._2.io.sample
+    rowSamplers.head._2.io
   }
 
-  io.sample.sample := sample
+  io.sample := sample
 
   logger.debug(s"Constructed CPDSampler for node ${node.name}")
 }

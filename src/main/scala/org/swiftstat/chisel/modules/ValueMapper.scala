@@ -39,7 +39,7 @@ class ValueMapper(nodes: Seq[UserNodeEntity]) extends Module {
         val values = node.values.map(nv => nv.value.RecFN)
         val valueVec = VecInit(values)
 
-        node.name -> MuxLookup(io.samples.samplesByName(node.name).sample, valueVec(0), valueVec.zipWithIndex.map { case (v, i) => i.U -> v })
+        node.name -> MuxLookup(io.samples.samplesByName(node.name), valueVec(0), valueVec.zipWithIndex.map { case (v, i) => i.U -> v })
     }.toMap
 
     io.mapped.valuesByName.foreach({ case (name, value) => value := valuesByName(name) })

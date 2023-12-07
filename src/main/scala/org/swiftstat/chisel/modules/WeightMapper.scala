@@ -30,7 +30,7 @@ class WeightMapper(nodes: Seq[UserNodeEntity], query: QueryEntity) extends Modul
             val parentSamplesMatched = if (parentValueSet.nonEmpty) {
                 parentValueSet.map(parentUNV => {
                     // the current Sample in hardware
-                    val currentHardwareSample = io.samples.samplesByName(parentUNV.name).sample
+                    val currentHardwareSample = io.samples.samplesByName(parentUNV.name)
 
                     // the ordinal that the sample should equal for this column to be active
                     val ordinalParentTarget = node.parent(parentUNV.name).get.getValueOrdinal(parentUNV)
@@ -51,7 +51,7 @@ class WeightMapper(nodes: Seq[UserNodeEntity], query: QueryEntity) extends Modul
 
     // synthesizes the correct RecFN weight based on all runtime values
     def synthForAll(node: UserNodeEntity): RecFN = {
-        val thisNodeSample = io.samples.samplesByName(node.name).sample
+        val thisNodeSample = io.samples.samplesByName(node.name)
 
         val matchThisNodeToWeight = node.values.map(value => {
             val valueBasedOnParent = synthForValue(node, value)

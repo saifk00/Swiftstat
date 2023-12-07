@@ -3,6 +3,7 @@ package org.swiftstat.chisel.modules
 import chisel3._
 import org.swiftstat.pgm.compiler.entity.UserNodeEntity
 import org.swiftstat.pgm.compiler.entity.UserNodeValue
+import chisel3.util.MixedVec
 
 /**
   * WARNING: DO NOT USE THIS CONSTRUCTOR DIRECTLY
@@ -16,13 +17,13 @@ class Sample (numBits: Int) extends Bundle {
 }
 
 class StaticSample(numBits: Int, value: UInt) extends Module {
-    val io = IO(new Sample(numBits))
-    io.sample := value
+    val io = IO(Output(UInt(numBits.W)))
+    io := value
 }
 
 object StaticSample {
-    def apply(numBits: Int, value: UInt): Sample = Module(new StaticSample(numBits, value)).io
-    def apply(node: UserNodeEntity, value: UserNodeValue): Sample = {
+    def apply(numBits: Int, value: UInt): UInt = Module(new StaticSample(numBits, value)).io
+    def apply(node: UserNodeEntity, value: UserNodeValue): UInt = {
         val numBits = (Math.floor(Math.log(node.getMaxOrdinal()) / Math.log(2)) + 1).toInt
         val sampleValue = node.getValueOrdinal(value)
 
@@ -31,7 +32,7 @@ object StaticSample {
 }
 
 object Sample {
-    def fromNumBits(numBits: Int): Sample = new Sample(numBits)
+    def fromNumBits(numBits: Int): UInt = UInt(numBits.W)
 
     /**
       * Construct a Sample from a user node entity
@@ -40,9 +41,10 @@ object Sample {
       * @param node the node to sample
       * @return a [[Sample]] bundle
       */
-    def apply(node: UserNodeEntity): Sample = {
+    def apply(node: UserNodeEntity): UInt = {
       val maxValue = node.getMaxOrdinal()
       val numBits = (Math.floor(Math.log(maxValue) / Math.log(2)) + 1).toInt
-      new Sample(numBits)
+      UInt(numBits.W)
     }
+
 }

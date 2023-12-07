@@ -272,15 +272,15 @@ class QueryEvaluatorTest extends AnyFlatSpec with ChiselScalatestTester {
         c.clock.setTimeout(0)
 
         // run 23 cycles for each value we want to add to the average
-        c.io.samples.samplesByName("A").sample.poke(1.U)
-        c.io.samples.samplesByName("B").sample.poke(1.U)
+        c.io.samples.samplesByName("A").poke(1.U)
+        c.io.samples.samplesByName("B").poke(1.U)
 
         // A[1] + B[1] = 2.0 + 2.0 = 4.0
         // W = C.cols[2][A1B1] = 0.4
         c.clock.step(23)
 
-        c.io.samples.samplesByName("A").sample.poke(0.U)
-        c.io.samples.samplesByName("B").sample.poke(1.U)
+        c.io.samples.samplesByName("A").poke(0.U)
+        c.io.samples.samplesByName("B").poke(1.U)
         // A[0] + B[1] = 1.0 + 2.0 = 3.0
         // W = C.cols[2][A0B1] = 0.1
         c.clock.step(23)
